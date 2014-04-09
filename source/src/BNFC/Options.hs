@@ -27,7 +27,7 @@ data Mode
 -- | Target languages
 data Target = TargetC | TargetCpp | TargetCppNoStl | TargetCSharp
             | TargetHaskell | TargetHaskellGadt | TargetLatex
-            | TargetJava | TargetOCaml | TargetProfile | TargetPygments
+            | TargetJava | TargetOCaml | TargetProfile | TargetPygments | TargetELisp
   deriving (Eq,Bounded, Enum,Ord)
 
 -- Create a list of all target using the enum and bounded classes
@@ -46,6 +46,7 @@ instance Show Target where
   show TargetOCaml        = "OCaml"
   show TargetProfile      = "Haskell (with permutation profiles)"
   show TargetPygments     = "Pygments"
+  show TargetELisp        = "ELisp"
 
 -- | Which version of Alex is targeted?
 data AlexVersion = Alex1 | Alex2 | Alex3
@@ -143,6 +144,8 @@ targetOptions =
     "Output Haskell code for rules with permutation profiles"
   , Option "" ["pygments"]      (NoArg (\o -> o {target = TargetPygments}))
     "Output a Python lexer for Pygments"
+  , Option "" ["elisp"]       (NoArg TargetELisp)
+    "Output ELisp code for use as a language mode with emacs" ]
   ]
 
 -- | A list of the options and for each of them, the target language

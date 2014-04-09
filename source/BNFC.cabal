@@ -50,7 +50,9 @@ Executable bnfc
     containers,
     pretty >=1.1 && <1.2,
     filepath,
-    deepseq
+    deepseq,
+    atto-lisp,
+    text == 0.11.3.1
   build-tools:         alex, happy
   Main-is: Main.hs
   HS-source-dirs: src/
@@ -174,7 +176,10 @@ Executable bnfc
     BNFC.Backend.Java.RegToJLex
 
     -- XML backend
-    BNFC.Backend.XML
+    BNFC.Backend.XML,
+
+    -- ELisp backend
+    BNFC.Backend.ELisp
 
     -- Pygments backend
     BNFC.Backend.Pygments
