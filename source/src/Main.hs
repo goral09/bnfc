@@ -40,6 +40,9 @@ import BNFC.Backend.Java
 import BNFC.Backend.Latex
 import BNFC.Backend.OCaml
 import BNFC.Backend.Pygments
+import BNFC.Backend.XML
+import BNFC.Backend.ELisp
+import BNFC.Utils
 import BNFC.GetCF
 import BNFC.Options hiding (make)
 
@@ -84,3 +87,4 @@ maketarget t = case t of
     TargetOCaml        -> makeOCaml
     TargetProfile      -> error "Not implemented"
     TargetPygments     -> makePygments
+    TargetELLLisp      -> makeELisp
