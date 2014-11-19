@@ -72,6 +72,7 @@ main = do
                     >>= writeFiles (outDir options) . makeHaskellProfile options
     Target options file ->
       readFile file >>= parseCF options (target options) >>= make (target options) options
+<<<<<<< HEAD
   where
     make t opts cf = writeFiles (outDir opts) $ (maketarget t) opts cf
 
@@ -88,3 +89,17 @@ maketarget t = case t of
     TargetProfile      -> error "Not implemented"
     TargetPygments     -> makePygments
     TargetELLLisp      -> makeELisp
+=======
+  where make TargetC            opts cf = writeFiles "." $ makeC opts cf
+        make TargetCpp          opts cf = writeFiles "." $ makeCppStl opts cf
+        make TargetCppNoStl     opts cf = writeFiles "." $ makeCppNoStl opts cf
+        make TargetCSharp       opts cf = writeFiles "." $ makeCSharp opts cf
+        make TargetHaskell      opts cf = writeFiles "." $ makeHaskell opts cf
+        make TargetHaskellGadt  opts cf = writeFiles "." $ makeHaskellGadt opts cf
+        make TargetLatex        opts cf = writeFiles "." $ makeLatex opts cf
+        make TargetJava         opts cf = writeFiles "." $ makeJava opts cf
+        make TargetOCaml        opts cf = writeFiles "." $ makeOCaml opts cf
+        make TargetProfile      opts cf = fail "" opts cf
+        make TargetPygments     opts cf = writeFiles "." $ makePygments opts cf
+        make TargetELisp        opts cf = writeFiles "." $ makeELisp opts cf
+>>>>>>> finished migration of elisp backend to upstream
