@@ -37,7 +37,7 @@ makeELisp :: SharedOptions -> CF -> Backend
 makeELisp opts cf = do
   let cfg = unCFG cf
       (_exts,xs) = cfg
-      rules = map rhsRule xs :: [[Either String String]]
+      rules = map rhsRule xs :: [[Either Cat String]]
       langName = lang opts
       lisps = deriveLanguageMode rules langName
       content = unlines $
@@ -59,7 +59,7 @@ makeELisp opts cf = do
 
 data FontKeyword = Type String | Keyword String | Function String deriving (Eq)
 
-deriveLanguageMode :: [[Either String String]] -> String -> [L.Lisp]
+deriveLanguageMode :: [[Either Cat String]] -> String -> [L.Lisp]
 deriveLanguageMode rules lang = [keywordsLisp,typesLisp,functionsLisp]
     where isKeyword = \case (Keyword _)  -> True; _ -> False
           isType    = \case (Type _)     -> True; _ -> False
@@ -87,7 +87,7 @@ deriveLanguageMode rules lang = [keywordsLisp,typesLisp,functionsLisp]
           extractAllKeywords :: [FontKeyword]
           extractAllKeywords = nub $ concatMap extractKeywords rules
               where 
-                extractKeywords :: [Either String String] -> [FontKeyword]
+                extractKeywords :: [Either Cat String] -> [FontKeyword]
                 extractKeywords []  = []
                 extractKeywords [x] = case x of Left _ -> []; Right s -> [Type s]
 

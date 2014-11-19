@@ -144,9 +144,8 @@ targetOptions =
     "Output Haskell code for rules with permutation profiles"
   , Option "" ["pygments"]      (NoArg (\o -> o {target = TargetPygments}))
     "Output a Python lexer for Pygments"
-  , Option "" ["elisp"]       (NoArg TargetELisp)
+  , Option "" ["elisp"]       (NoArg (\o -> o {target = TargetELisp}))
     "Output ELisp code for use as a language mode with emacs" ]
-  ]
 
 -- | A list of the options and for each of them, the target language
 -- they apply to.
