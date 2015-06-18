@@ -20,7 +20,7 @@
 
 {-# LANGUAGE LambdaCase, OverloadedStrings #-}
 
-module BNFC.Backend.ELisp (makeELisp) where
+module BNFC.Backend.ELisp (makeELisp,companyMode) where
 
 
 -- import BNFC.Utils
@@ -108,6 +108,32 @@ regexes lang = [keywords_regexp,types_regexp,functions_regexp]
       functions_regexp = L.List [L.Symbol "setq", L.Symbol (mkSymbol lang "functions-regexp"),
                                   L.List [L.Symbol "regexp-opt", L.Symbol (mkSymbol lang "functions"),
                                            L.List [L.Symbol "quote", L.Symbol "words"]]]
+
+companyMode :: String -> [L.Lisp]
+companyMode lang = requires ++ defconsts ++ backend ++ addToList
+    where
+      requires = [ L.List [L.Symbol "require", L.List [L.Symbol "quote", L.Symbol "cl-lib"]]
+                 , L.List [L.Symbol "require", L.List [L.Symbol "quote", L.Symbol "company"]] ]
+
+      -- (defconst sample-completions
+      --  '("foo" "bar"))
+      defconsts = [undefined]
+
+      -- (defun company-<lang>-backend (command &optional arg &rest ignored)
+      -- (interactive (list 'interactive))
+      --
+      --  (cl-case command
+      --   (interactive (company-begin-backend 'company-<lang>-backend))
+      --   (prefix (and (eq major-mode '<lang>-mode)
+      --                (company-grab-symbol)))
+      --   (candidates
+      --    (cl-remove-if-not
+      --     (lambda (c) (string-prefix-p arg c))
+      --     sample-completions))))
+      backend = undefined
+
+      -- (add-to-list 'company-backends 'company-<lang>-backend)
+      addToList = [undefined]
 
 clearMemory :: String -> [L.Lisp]
 clearMemory lang = [keywords_clearmem,types_clearmem,functions_clearmem]
